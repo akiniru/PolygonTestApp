@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		950C04D41CB4E60C002EC97F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C04D31CB4E60C002EC97F /* main.m */; };
+		950C04D71CB4E60C002EC97F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C04D61CB4E60C002EC97F /* AppDelegate.m */; };
+		950C04DA1CB4E60C002EC97F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C04D91CB4E60C002EC97F /* ViewController.m */; };
+		950C04DD1CB4E60C002EC97F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950C04DB1CB4E60C002EC97F /* Main.storyboard */; };
+		950C04E01CB4E60C002EC97F /* PolygonTestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 950C04DE1CB4E60C002EC97F /* PolygonTestApp.xcdatamodeld */; };
+		950C04E21CB4E60C002EC97F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 950C04E11CB4E60C002EC97F /* Assets.xcassets */; };
+		950C04E51CB4E60C002EC97F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950C04E31CB4E60C002EC97F /* LaunchScreen.storyboard */; };
+		950C04F31CB4F1A8002EC97F /* AKPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C04F21CB4F1A8002EC97F /* AKPolygonView.m */; };
+		950C04F71CB61D1E002EC97F /* AKLineDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C04F61CB61D1E002EC97F /* AKLineDrawingView.m */; };
+		950C04FA1CB62479002EC97F /* AKPatternBrushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 950C04F91CB62479002EC97F /* AKPatternBrushView.m */; };
+		950C04FD1CB62920002EC97F /* pattern.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 950C04FC1CB62920002EC97F /* pattern.jpg */; };
+		950C04FF1CB65A78002EC97F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C04FE1CB65A78002EC97F /* CoreGraphics.framework */; };
+		950C05011CB65A81002EC97F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C05001CB65A81002EC97F /* UIKit.framework */; };
+		950C05031CB65A8B002EC97F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 950C05021CB65A8B002EC97F /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		950C04CF1CB4E60C002EC97F /* PolygonTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolygonTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		950C04D31CB4E60C002EC97F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		950C04D51CB4E60C002EC97F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		950C04D61CB4E60C002EC97F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		950C04D81CB4E60C002EC97F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		950C04D91CB4E60C002EC97F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		950C04DC1CB4E60C002EC97F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		950C04DF1CB4E60C002EC97F /* PolygonTestApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PolygonTestApp.xcdatamodel; sourceTree = "<group>"; };
+		950C04E11CB4E60C002EC97F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		950C04E41CB4E60C002EC97F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		950C04E61CB4E60C002EC97F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		950C04F11CB4F1A8002EC97F /* AKPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKPolygonView.h; path = CustomView/AKPolygonView.h; sourceTree = "<group>"; };
+		950C04F21CB4F1A8002EC97F /* AKPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKPolygonView.m; path = CustomView/AKPolygonView.m; sourceTree = "<group>"; };
+		950C04F41CB4F304002EC97F /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		950C04F51CB61D1E002EC97F /* AKLineDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKLineDrawingView.h; path = CustomView/AKLineDrawingView.h; sourceTree = "<group>"; };
+		950C04F61CB61D1E002EC97F /* AKLineDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKLineDrawingView.m; path = CustomView/AKLineDrawingView.m; sourceTree = "<group>"; };
+		950C04F81CB62479002EC97F /* AKPatternBrushView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKPatternBrushView.h; path = CustomView/AKPatternBrushView.h; sourceTree = "<group>"; };
+		950C04F91CB62479002EC97F /* AKPatternBrushView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AKPatternBrushView.m; path = CustomView/AKPatternBrushView.m; sourceTree = "<group>"; };
+		950C04FC1CB62920002EC97F /* pattern.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pattern.jpg; path = Resurces/Images/pattern.jpg; sourceTree = "<group>"; };
+		950C04FE1CB65A78002EC97F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		950C05001CB65A81002EC97F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		950C05021CB65A8B002EC97F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		950C04CC1CB4E60C002EC97F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				950C05011CB65A81002EC97F /* UIKit.framework in Frameworks */,
+				950C04FF1CB65A78002EC97F /* CoreGraphics.framework in Frameworks */,
+				950C05031CB65A8B002EC97F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		950C04C61CB4E60C002EC97F = {
+			isa = PBXGroup;
+			children = (
+				950C04D11CB4E60C002EC97F /* PolygonTestApp */,
+				950C04D01CB4E60C002EC97F /* Products */,
+				950C05041CB65A99002EC97F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		950C04D01CB4E60C002EC97F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				950C04CF1CB4E60C002EC97F /* PolygonTestApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		950C04D11CB4E60C002EC97F /* PolygonTestApp */ = {
+			isa = PBXGroup;
+			children = (
+				950C04EC1CB4E62E002EC97F /* Class */,
+				950C04D51CB4E60C002EC97F /* AppDelegate.h */,
+				950C04D61CB4E60C002EC97F /* AppDelegate.m */,
+				950C04DB1CB4E60C002EC97F /* Main.storyboard */,
+				950C04E11CB4E60C002EC97F /* Assets.xcassets */,
+				950C04E31CB4E60C002EC97F /* LaunchScreen.storyboard */,
+				950C04E61CB4E60C002EC97F /* Info.plist */,
+				950C04DE1CB4E60C002EC97F /* PolygonTestApp.xcdatamodeld */,
+				950C04D21CB4E60C002EC97F /* Supporting Files */,
+			);
+			path = PolygonTestApp;
+			sourceTree = "<group>";
+		};
+		950C04D21CB4E60C002EC97F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				950C04D31CB4E60C002EC97F /* main.m */,
+				950C04F41CB4F304002EC97F /* PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		950C04EC1CB4E62E002EC97F /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				950C04EE1CB4E64C002EC97F /* View */,
+				950C04ED1CB4E645002EC97F /* Module */,
+				950C04EF1CB4E65A002EC97F /* Resources */,
+			);
+			name = Class;
+			sourceTree = "<group>";
+		};
+		950C04ED1CB4E645002EC97F /* Module */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Module;
+			sourceTree = "<group>";
+		};
+		950C04EE1CB4E64C002EC97F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				950C04F01CB4F189002EC97F /* CustomView */,
+				950C04D81CB4E60C002EC97F /* ViewController.h */,
+				950C04D91CB4E60C002EC97F /* ViewController.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		950C04EF1CB4E65A002EC97F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				950C04FB1CB628EF002EC97F /* Images */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		950C04F01CB4F189002EC97F /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				950C04F81CB62479002EC97F /* AKPatternBrushView.h */,
+				950C04F91CB62479002EC97F /* AKPatternBrushView.m */,
+				950C04F51CB61D1E002EC97F /* AKLineDrawingView.h */,
+				950C04F61CB61D1E002EC97F /* AKLineDrawingView.m */,
+				950C04F11CB4F1A8002EC97F /* AKPolygonView.h */,
+				950C04F21CB4F1A8002EC97F /* AKPolygonView.m */,
+			);
+			name = CustomView;
+			sourceTree = "<group>";
+		};
+		950C04FB1CB628EF002EC97F /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				950C04FC1CB62920002EC97F /* pattern.jpg */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		950C05041CB65A99002EC97F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				950C05021CB65A8B002EC97F /* Foundation.framework */,
+				950C05001CB65A81002EC97F /* UIKit.framework */,
+				950C04FE1CB65A78002EC97F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			path = PolygonTestApp;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		950C04CE1CB4E60C002EC97F /* PolygonTestApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 950C04E91CB4E60C002EC97F /* Build configuration list for PBXNativeTarget "PolygonTestApp" */;
+			buildPhases = (
+				950C04CB1CB4E60C002EC97F /* Sources */,
+				950C04CC1CB4E60C002EC97F /* Frameworks */,
+				950C04CD1CB4E60C002EC97F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PolygonTestApp;
+			productName = PolygonTestApp;
+			productReference = 950C04CF1CB4E60C002EC97F /* PolygonTestApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		950C04C71CB4E60C002EC97F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = mcocoa;
+				TargetAttributes = {
+					950C04CE1CB4E60C002EC97F = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 950C04CA1CB4E60C002EC97F /* Build configuration list for PBXProject "PolygonTestApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 950C04C61CB4E60C002EC97F;
+			productRefGroup = 950C04D01CB4E60C002EC97F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				950C04CE1CB4E60C002EC97F /* PolygonTestApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		950C04CD1CB4E60C002EC97F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				950C04FD1CB62920002EC97F /* pattern.jpg in Resources */,
+				950C04E51CB4E60C002EC97F /* LaunchScreen.storyboard in Resources */,
+				950C04E21CB4E60C002EC97F /* Assets.xcassets in Resources */,
+				950C04DD1CB4E60C002EC97F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		950C04CB1CB4E60C002EC97F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				950C04F31CB4F1A8002EC97F /* AKPolygonView.m in Sources */,
+				950C04F71CB61D1E002EC97F /* AKLineDrawingView.m in Sources */,
+				950C04FA1CB62479002EC97F /* AKPatternBrushView.m in Sources */,
+				950C04E01CB4E60C002EC97F /* PolygonTestApp.xcdatamodeld in Sources */,
+				950C04DA1CB4E60C002EC97F /* ViewController.m in Sources */,
+				950C04D71CB4E60C002EC97F /* AppDelegate.m in Sources */,
+				950C04D41CB4E60C002EC97F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		950C04DB1CB4E60C002EC97F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				950C04DC1CB4E60C002EC97F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		950C04E31CB4E60C002EC97F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				950C04E41CB4E60C002EC97F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		950C04E71CB4E60C002EC97F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		950C04E81CB4E60C002EC97F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		950C04EA1CB4E60C002EC97F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PolygonTestApp/PrefixHeader.pch";
+				INFOPLIST_FILE = PolygonTestApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rainbowfactory.PolygonTestApp.PolygonTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		950C04EB1CB4E60C002EC97F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/PolygonTestApp/PrefixHeader.pch";
+				INFOPLIST_FILE = PolygonTestApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.rainbowfactory.PolygonTestApp.PolygonTestApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		950C04CA1CB4E60C002EC97F /* Build configuration list for PBXProject "PolygonTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				950C04E71CB4E60C002EC97F /* Debug */,
+				950C04E81CB4E60C002EC97F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		950C04E91CB4E60C002EC97F /* Build configuration list for PBXNativeTarget "PolygonTestApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				950C04EA1CB4E60C002EC97F /* Debug */,
+				950C04EB1CB4E60C002EC97F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		950C04DE1CB4E60C002EC97F /* PolygonTestApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				950C04DF1CB4E60C002EC97F /* PolygonTestApp.xcdatamodel */,
+			);
+			currentVersion = 950C04DF1CB4E60C002EC97F /* PolygonTestApp.xcdatamodel */;
+			path = PolygonTestApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 950C04C71CB4E60C002EC97F /* Project object */;
+}
