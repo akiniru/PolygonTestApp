@@ -83,7 +83,7 @@
 - (void)drawRect:(CGRect)rect
 {
     NSString *rectString = NSStringFromCGRect(rect);
-    NSLog(@"called. rectString: %@, self.polygonsDic.count: %lu", rectString, (unsigned long)self.polygonsListDic.count);
+    NSLog(@"called. rectString: %@, self.polygonsListDic.count: %lu", rectString, (unsigned long)self.polygonsListDic.count);
     if (nil == self.polygonsListDic || 0 == self.polygonsListDic.count)
     {
         return;
@@ -123,42 +123,41 @@
     }
 }
 
-- (void)initAllPoints:(NSInteger)count
+- (void)initAllPoints:(int)count
 {
     NSLog(@"called");
     int index = 0;
-    CGFloat pointCount = count;
+    int pointCount = count;
     NSString *pointKeyString = [@(pointCount) stringValue];
     NSMutableDictionary *polygonsDic = [self.polygonsListDic objectForKey:pointKeyString];
     NSLog(@"polygonsDic is nil: %@", NSStringFromObjectIsNill(polygonsDic));
-    NSMutableArray *polygonPathArray;
     if (nil == polygonsDic)
     {
         polygonsDic = [NSMutableDictionary dictionary];
-        NSString *indexKeyString = [@(index) stringValue];
-        polygonPathArray = [NSMutableArray array];
-        [polygonsDic setObject:polygonPathArray forKey:indexKeyString];
         [self.polygonsListDic setObject:polygonsDic forKey:pointKeyString];
     }
-    [polygonPathArray removeAllObjects];
+    
+    index = (int)[polygonsDic allKeys].count;
+    NSString *indexKeyString = [@(index) stringValue];
+    NSMutableArray *polygonPathArray = [NSMutableArray array];
+    [polygonsDic setObject:polygonPathArray forKey:indexKeyString];
     
     CGFloat midPointX = CGRectGetMidX(self.bounds);
     CGFloat midPointY = CGRectGetMidY(self.bounds);
     CGFloat distanceFromCenter = self.bounds.size.width < self.bounds.size.height ? self.bounds.size.width / 3: self.bounds.size.height / 3;
-    NSLog(@"pointCount: %f, midPointX: %f, midPointY: %f", pointCount, midPointX, midPointY);
+    NSLog(@"pointCount: %d, midPointX: %f, midPointY: %f", pointCount, midPointX, midPointY);
     for (int i = 0; i < pointCount; ++i)
     {
-        float x = midPointX + distanceFromCenter * cos(i / pointCount * 2 * M_PI - M_PI / 2);
-        float y = midPointY + distanceFromCenter * sin(i / pointCount * 2 * M_PI - M_PI / 2);
+        float x = midPointX + distanceFromCenter * cos(i / (float)pointCount * 2 * M_PI - M_PI / 2);
+        float y = midPointY + distanceFromCenter * sin(i / (float)pointCount * 2 * M_PI - M_PI / 2);
         CGPoint point = CGPointMake(x, y);
-        NSLog(@"index: %d, point: %@", i, NSStringFromCGPoint(point));
         [polygonPathArray addObject:[NSValue valueWithCGPoint:point]];
     }
     
     NSLog(@"polygonPathArray: %@", polygonPathArray);
 }
 
-- (void)initAllPointsWithPointCount:(NSInteger)count;
+- (void)initAllPointsWithPointCount:(int)count
 {
     NSLog(@"called");
     [self.polygonsListDic removeAllObjects];
@@ -167,26 +166,39 @@
     [self setNeedsDisplay];
 }
 
-- (void)actionLongPress:(UILongPressGestureRecognizer *)recognizer
+- (void)moveAllPoints:(CGPoint)touchPoint
 {
-    NSLog(@"called. recognizer.state: %ld", (long)recognizer.state);
-    CGPoint touchPoint = [recognizer locationInView:self];
-    if (recognizer.state == UIGestureRecognizerStateBegan)
+    NSLog(@"called");
+    CGFloat distanceX = touchPoint.x - self.touchStartPoint.x;
+    CGFloat distanceY = touchPoint.y - self.touchStartPoint.y;
+    self.touchStartPoint = touchPoint;
+    NSLog(@"distanceX: %f, distanceY: %f", distanceX, distanceY);
+    
+    NSMutableArray *polygonPathArray = [self searchPolygonPathArray:self.searchedPointInfo];
+    NSMutableArray *tempArray = [NSMutableArray array];
+    for (NSInteger i = 0; i < polygonPathArray.count; i++)
     {
-        self.touchStartPoint = touchPoint;
-        NSString *touchPointString = NSStringFromCGPoint(touchPoint);
-        NSLog(@"touchPointString: %@", touchPointString);
-        SearchedPointInfo *pointInfo = [self searchClosestPoint:touchPoint];
-        self.searchedPointInfo = pointInfo;
+        NSValue *savedValue = [polygonPathArray objectAtIndex:i];
+        CGPoint savedPoint = [savedValue CGPointValue];
+        NSLog(@"before savedPoint: %@", NSStringFromCGPoint(savedPoint));
+        savedPoint.x = savedPoint.x + distanceX;
+        savedPoint.y = savedPoint.y + distanceY;
+        NSLog(@"after savedPoint: %@", NSStringFromCGPoint(savedPoint));
+        
+        if (savedPoint.x < 0 || savedPoint.x > self.bounds.size.width || savedPoint.y < 0 || savedPoint.y > self.bounds.size.height)
+        {
+            return;
+        }
+        
+        NSValue *newPointValue = [NSValue valueWithCGPoint:savedPoint];
+        [tempArray addObject:newPointValue];
     }
-    else if (recognizer.state == UIGestureRecognizerStateChanged)
-    {
-        [self moveAllPoints:touchPoint];
-    }
-    else if (recognizer.state == UIGestureRecognizerStateEnded)
-    {
-    }
+    [polygonPathArray removeAllObjects];
+    [polygonPathArray addObjectsFromArray:tempArray];
+    
+    [self setNeedsDisplay];
 }
+
 
 - (SearchedPointInfo *)searchClosestPoint:(CGPoint)touchPoint
 {
@@ -240,39 +252,6 @@
     return pointInfo;
 }
 
-- (void)moveAllPoints:(CGPoint)touchPoint
-{
-    NSLog(@"called");
-    CGFloat distanceX = touchPoint.x - self.touchStartPoint.x;
-    CGFloat distanceY = touchPoint.y - self.touchStartPoint.y;
-    self.touchStartPoint = touchPoint;
-    NSLog(@"distanceX: %f, distanceY: %f", distanceX, distanceY);
-    
-    NSMutableArray *polygonPathArray = [self searchPolygonPathArray:self.searchedPointInfo];
-    NSMutableArray *tempArray = [NSMutableArray array];
-    for (NSInteger i = 0; i < polygonPathArray.count; i++)
-    {
-        NSValue *savedValue = [polygonPathArray objectAtIndex:i];
-        CGPoint savedPoint = [savedValue CGPointValue];
-        NSLog(@"before savedPoint: %@", NSStringFromCGPoint(savedPoint));
-        savedPoint.x = savedPoint.x + distanceX;
-        savedPoint.y = savedPoint.y + distanceY;
-        NSLog(@"after savedPoint: %@", NSStringFromCGPoint(savedPoint));
-        
-        if (savedPoint.x < 0 || savedPoint.x > self.bounds.size.width || savedPoint.y < 0 || savedPoint.y > self.bounds.size.height)
-        {
-            return;
-        }
-        
-        NSValue *newPointValue = [NSValue valueWithCGPoint:savedPoint];
-        [tempArray addObject:newPointValue];
-    }
-    [polygonPathArray removeAllObjects];
-    [polygonPathArray addObjectsFromArray:tempArray];
-    
-    [self setNeedsDisplay];
-}
-
 - (NSMutableArray *)searchPolygonPathArray:(SearchedPointInfo *)searchedPointInfo
 {
     NSArray *polygonsListKeyArray = [self.polygonsListDic allKeys];
@@ -283,6 +262,27 @@
     NSMutableArray *polygonPathArray = [polygonsDic objectForKey:indexKeyString];
     
     return polygonPathArray;
+}
+
+- (void)actionLongPress:(UILongPressGestureRecognizer *)recognizer
+{
+    NSLog(@"called. recognizer.state: %ld", (long)recognizer.state);
+    CGPoint touchPoint = [recognizer locationInView:self];
+    if (recognizer.state == UIGestureRecognizerStateBegan)
+    {
+        self.touchStartPoint = touchPoint;
+        NSString *touchPointString = NSStringFromCGPoint(touchPoint);
+        NSLog(@"touchPointString: %@", touchPointString);
+        SearchedPointInfo *pointInfo = [self searchClosestPoint:touchPoint];
+        self.searchedPointInfo = pointInfo;
+    }
+    else if (recognizer.state == UIGestureRecognizerStateChanged)
+    {
+        [self moveAllPoints:touchPoint];
+    }
+    else if (recognizer.state == UIGestureRecognizerStateEnded)
+    {
+    }
 }
 
 #pragma mark - Touch Method

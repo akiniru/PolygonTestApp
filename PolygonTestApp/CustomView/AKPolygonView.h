@@ -17,6 +17,6 @@ typedef struct SearchedPointInfo {
     NSInteger searchedPointIndex;
 } SearchedPointInfo;
 
-- (void)initAllPointsWithPointCount:(NSInteger)count;
+- (void)initAllPointsWithPointCount:(int)count;
 
 @end
