@@ -20,3 +20,6 @@
 #else
 #define NSLog(fmt, ...)
 #endif
+
+#define NSStringFromBOOL(aBOOL)    aBOOL? @"YES" : @"NO"
+#define NSStringFromObjectIsNill(aObject) nil == aObject ? @"YES" : @"NO"
