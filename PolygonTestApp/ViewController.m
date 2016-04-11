@@ -14,10 +14,10 @@
 
 @interface ViewController ()
 
-@property (nonatomic) AKPolygonView *polygonView;
-@property (nonatomic) AKLineDrawingView *lineDrawingView;
-@property (nonatomic) AKPatternBrushView *patternBrushView;
-@property (nonatomic) NSInteger pointCount;
+@property (nonatomic, strong) AKPolygonView *polygonView;
+@property (nonatomic, strong) AKLineDrawingView *lineDrawingView;
+@property (nonatomic, strong) AKPatternBrushView *patternBrushView;
+@property (nonatomic, assign) int pointCount;
 
 @end
 

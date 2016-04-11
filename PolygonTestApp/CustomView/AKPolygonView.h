@@ -11,11 +11,11 @@
 
 @interface AKPolygonView : UIView
 
-typedef struct SearchedPointInfo {
-    NSInteger searchedPointKeyIndex;
-    NSInteger searchedIndexKeyIndex;
-    NSInteger searchedPointIndex;
-} SearchedPointInfo;
+typedef struct AKPointInfo {
+    NSInteger pointKeyIndex;
+    NSInteger indexKeyIndex;
+    NSInteger pointIndex;
+} AKPointInfo;
 
 - (void)initAllPointsWithPointCount:(int)count;
 

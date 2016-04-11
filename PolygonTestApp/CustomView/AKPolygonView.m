@@ -34,7 +34,7 @@
 @property (nonatomic, strong) UIColor *fillColor;
 @property (nonatomic, strong) NSMutableDictionary *polygonsListDic;
 @property (nonatomic, strong) UILongPressGestureRecognizer *gestureRecognizer;
-@property (nonatomic, assign) SearchedPointInfo *searchedPointInfo;
+@property (nonatomic, assign) AKPointInfo *searchedPointInfo;
 @property (nonatomic, assign) CGPoint touchStartPoint;
 
 @end
@@ -71,6 +71,7 @@
     self.polygonsListDic = [NSMutableDictionary dictionary];
     
     UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(actionLongPress:)];
+    [gestureRecognizer setMinimumPressDuration:0.3];
     [self addGestureRecognizer:gestureRecognizer];
     
     [self initAllPoints:DEFAULT_POINT_COUNT];
@@ -83,7 +84,7 @@
 - (void)drawRect:(CGRect)rect
 {
     NSString *rectString = NSStringFromCGRect(rect);
-    NSLog(@"called. rectString: %@, self.polygonsListDic.count: %lu", rectString, (unsigned long)self.polygonsListDic.count);
+    NSLog(@"called. rectString: %@", rectString);
     if (nil == self.polygonsListDic || 0 == self.polygonsListDic.count)
     {
         return;
@@ -116,7 +117,6 @@
                 CGPoint point = [pointValue CGPointValue];
                 CGContextAddLineToPoint(graphContext, point.x, point.y);
             }
-            
             CGContextSetFillColorWithColor(graphContext, self.fillColor.CGColor);
             CGContextFillPath(graphContext);
         }
@@ -176,7 +176,7 @@
     
     NSMutableArray *polygonPathArray = [self searchPolygonPathArray:self.searchedPointInfo];
     NSMutableArray *tempArray = [NSMutableArray array];
-    for (NSInteger i = 0; i < polygonPathArray.count; i++)
+    for (int i = 0; i < polygonPathArray.count; ++i)
     {
         NSValue *savedValue = [polygonPathArray objectAtIndex:i];
         CGPoint savedPoint = [savedValue CGPointValue];
@@ -200,7 +200,7 @@
 }
 
 
-- (SearchedPointInfo *)searchClosestPoint:(CGPoint)touchPoint
+- (AKPointInfo *)searchClosestPoint:(CGPoint)touchPoint
 {
     NSLog(@"called");
     NSLog(@"self.polygonsDic.count: %lu", self.polygonsListDic.count);
@@ -245,20 +245,20 @@
     }
     
     NSLog(@"searchedPointKeyIndex: %ld, searchedIndexKeyIndex: %ld, searchedPointIndex: %ld", (long)searchedPointKeyIndex, (long)searchedIndexKeyIndex, (long)searchedPointIndex);
-    SearchedPointInfo *pointInfo = (SearchedPointInfo *) malloc(sizeof(SearchedPointInfo));
-    pointInfo->searchedPointKeyIndex = searchedPointKeyIndex;
-    pointInfo->searchedIndexKeyIndex = searchedIndexKeyIndex;
-    pointInfo->searchedPointIndex = searchedPointIndex;
-    return pointInfo;
+    AKPointInfo *searchedPointInfo = (AKPointInfo *) malloc(sizeof(AKPointInfo));
+    searchedPointInfo->pointKeyIndex = searchedPointKeyIndex;
+    searchedPointInfo->indexKeyIndex = searchedIndexKeyIndex;
+    searchedPointInfo->pointIndex = searchedPointIndex;
+    return searchedPointInfo;
 }
 
-- (NSMutableArray *)searchPolygonPathArray:(SearchedPointInfo *)searchedPointInfo
+- (NSMutableArray *)searchPolygonPathArray:(AKPointInfo *)searchedPointInfo
 {
     NSArray *polygonsListKeyArray = [self.polygonsListDic allKeys];
-    NSString *pointKeyString = [polygonsListKeyArray objectAtIndex:self.searchedPointInfo->searchedPointKeyIndex];
+    NSString *pointKeyString = [polygonsListKeyArray objectAtIndex:searchedPointInfo->pointKeyIndex];
     NSMutableDictionary *polygonsDic = [self.polygonsListDic objectForKey:pointKeyString];
     NSArray *polygonsKeyArray = [polygonsDic allKeys];
-    NSString *indexKeyString = [polygonsKeyArray objectAtIndex:self.searchedPointInfo->searchedIndexKeyIndex];
+    NSString *indexKeyString = [polygonsKeyArray objectAtIndex:searchedPointInfo->indexKeyIndex];
     NSMutableArray *polygonPathArray = [polygonsDic objectForKey:indexKeyString];
     
     return polygonPathArray;
@@ -273,8 +273,8 @@
         self.touchStartPoint = touchPoint;
         NSString *touchPointString = NSStringFromCGPoint(touchPoint);
         NSLog(@"touchPointString: %@", touchPointString);
-        SearchedPointInfo *pointInfo = [self searchClosestPoint:touchPoint];
-        self.searchedPointInfo = pointInfo;
+        AKPointInfo *searchedPointInfo = [self searchClosestPoint:touchPoint];
+        self.searchedPointInfo = searchedPointInfo;
     }
     else if (recognizer.state == UIGestureRecognizerStateChanged)
     {
@@ -291,8 +291,8 @@
     NSLog(@"called");
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    SearchedPointInfo *pointInfo = [self searchClosestPoint:touchPoint];
-    self.searchedPointInfo = pointInfo;
+    AKPointInfo *searchedPointInfo = [self searchClosestPoint:touchPoint];
+    self.searchedPointInfo = searchedPointInfo;
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -305,10 +305,9 @@
         return;
     }
     
-    
     NSMutableArray *polygonPathArray = [self searchPolygonPathArray:self.searchedPointInfo];
     NSValue *pointValue = [NSValue valueWithCGPoint:touchPoint];
-    [polygonPathArray replaceObjectAtIndex:self.searchedPointInfo->searchedPointIndex withObject:pointValue];
+    [polygonPathArray replaceObjectAtIndex:self.searchedPointInfo->pointIndex withObject:pointValue];
     
     [self setNeedsDisplay];
 }
