@@ -47,24 +47,25 @@
 {
     NSLog(@"called");
     self.pointCount = 3;
+    CGFloat statusBarHeight = 20;
     CGFloat rootViewWidth = self.view.frame.size.width;
     CGFloat polygonViewWidth = rootViewWidth;
     CGFloat polygonViewHeight = 320;
-    CGRect polygonRect = CGRectMake(0, 20, polygonViewWidth, polygonViewHeight);
+    CGRect polygonRect = CGRectMake(0, statusBarHeight, polygonViewWidth, polygonViewHeight);
     self.polygonView = [[AKPolygonView alloc] initWithFrame:polygonRect];
     [self.view addSubview:self.polygonView];
     
     UIButton *countUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [countUpButton setTitle:@"Count Up" forState:UIControlStateNormal];
     [countUpButton setBackgroundColor:[UIColor blackColor]];
-    countUpButton.frame = CGRectMake(100, polygonViewHeight, 100, 40);
+    countUpButton.frame = CGRectMake(100, polygonViewHeight + statusBarHeight + 10, 100, 40);
     [countUpButton addTarget:self action:@selector(actionPointCountUp) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:countUpButton];
     
     UIButton *countDownButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [countDownButton setTitle:@"Count Down" forState:UIControlStateNormal];
     [countDownButton setBackgroundColor:[UIColor blackColor]];
-    countDownButton.frame = CGRectMake(220, polygonViewHeight, 100, 40);
+    countDownButton.frame = CGRectMake(220, polygonViewHeight + statusBarHeight + 10, 100, 40);
     [countDownButton addTarget:self action:@selector(actionPointCountDown) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:countDownButton];
 }

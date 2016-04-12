@@ -199,14 +199,11 @@
     [self setNeedsDisplay];
 }
 
-
 - (AKPointInfo *)searchClosestPoint:(CGPoint)touchPoint
 {
     NSLog(@"called");
     NSLog(@"self.polygonsDic.count: %lu", self.polygonsListDic.count);
-    CGPoint centerPoint = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGFloat smallestDistance = MAXFLOAT;
-    CGPoint closestPoint = centerPoint;
     
     NSInteger searchedPointKeyIndex = -1;
     NSInteger searchedIndexKeyIndex = -1;
@@ -233,7 +230,6 @@
                 CGFloat distance = distanceBetweenTwoPoints(touchPoint, [savedValue CGPointValue]);
                 if (distance < smallestDistance)
                 {
-                    closestPoint = [savedValue CGPointValue];
                     smallestDistance = distance;
                     
                     searchedPointKeyIndex = i;
@@ -245,7 +241,7 @@
     }
     
     NSLog(@"searchedPointKeyIndex: %ld, searchedIndexKeyIndex: %ld, searchedPointIndex: %ld", (long)searchedPointKeyIndex, (long)searchedIndexKeyIndex, (long)searchedPointIndex);
-    AKPointInfo *searchedPointInfo = (AKPointInfo *) malloc(sizeof(AKPointInfo));
+    AKPointInfo *searchedPointInfo = (AKPointInfo *)malloc(sizeof(AKPointInfo));
     searchedPointInfo->pointKeyIndex = searchedPointKeyIndex;
     searchedPointInfo->indexKeyIndex = searchedIndexKeyIndex;
     searchedPointInfo->pointIndex = searchedPointIndex;
@@ -306,6 +302,106 @@
     }
     
     NSMutableArray *polygonPathArray = [self searchPolygonPathArray:self.searchedPointInfo];
+    int pointCount = (int)polygonPathArray.count;
+    //    if (3 < pointCount)
+    //    {
+    //        BOOL prevLeft = YES;
+    //        for (int i = 0; i < pointCount - 2; ++i)
+    //        {
+    //            int centerIndex = (int)self.searchedPointInfo->pointIndex;
+    //            int point1Index = (self.searchedPointInfo->pointIndex + i + 1) % pointCount;
+    //            int point2Index = (self.searchedPointInfo->pointIndex + i + 2) % pointCount;
+    //            NSLog(@"[%d] centerIndex: %d, point1Index: %d, point2Index: %d", i, centerIndex, point1Index, point2Index);
+    //            NSValue *centerValue = [polygonPathArray objectAtIndex:centerIndex];
+    //            NSValue *point1Value = [polygonPathArray objectAtIndex:point1Index];
+    //            NSValue *point2Value = [polygonPathArray objectAtIndex:point2Index];
+    //            CGPoint centerPoint = [centerValue CGPointValue];
+    //            CGPoint pointOfLine1 = [point1Value CGPointValue];
+    //            CGPoint pointOfLine2 = [point2Value CGPointValue];
+    //            CGFloat distanceByTouchPoint = distanceLintToPoint(pointOfLine1, pointOfLine2, touchPoint);
+    //            CGFloat distance = distanceLintToPoint(pointOfLine1, pointOfLine2, centerPoint);
+    //            BOOL isLeft = checkLeft(pointOfLine1, pointOfLine2, touchPoint);
+    //            NSLog(@"[%d] distance: %f, distanceByTouchPoint: %f, isLeft: %@", i, distance, distanceByTouchPoint, NSStringFromBOOL(isLeft));
+    //
+    //            if (i == 0)
+    //            {
+    //                prevLeft = isLeft;
+    //                continue;
+    //            }
+    //            if (prevLeft != isLeft) {
+    //                return;
+    //            }
+    //        }
+    //    }
+    
+    if (3 < pointCount)
+    {
+        int centerIndex = (int)self.searchedPointInfo->pointIndex;
+        int point1Index = (pointCount + centerIndex - 1) % pointCount;
+        int point2Index = (pointCount + centerIndex + 1) % pointCount;
+        NSLog(@"centerIndex: %d, point1Index: %d, point2Index: %d", centerIndex, point1Index, point2Index);
+        // NSValue *centerValue = [polygonPathArray objectAtIndex:centerIndex];
+        NSValue *point1Value = [polygonPathArray objectAtIndex:point1Index];
+        NSValue *point2Value = [polygonPathArray objectAtIndex:point2Index];
+        // CGPoint centerPoint = [centerValue CGPointValue];
+        CGPoint centerPoint = touchPoint;
+        CGPoint pointOfLine1 = [point1Value CGPointValue];
+        CGPoint pointOfLine2 = [point2Value CGPointValue];
+        LineSegment *ab = (LineSegment *)malloc(sizeof(LineSegment));
+        ab->pt1 = centerPoint;
+        ab->pt2 = pointOfLine1;
+        int isIntersection = 0;
+        for (int i = 0; i < pointCount - 2; ++i)
+        {
+            int tempPoint1Index = (pointCount + centerIndex + i + 1) % pointCount;
+            int tempPoint2Index = (pointCount + centerIndex + i + 2) % pointCount;
+            NSLog(@"[%d] centerIndex: %d, tempPoint1Index: %d, tempPoint2Index: %d", i, centerIndex, tempPoint1Index, tempPoint2Index);
+            if (point1Index == tempPoint2Index)
+            {
+                break;
+            }
+            NSValue *tempPoint1Value = [polygonPathArray objectAtIndex:tempPoint1Index];
+            NSValue *tempPoint2Value = [polygonPathArray objectAtIndex:tempPoint2Index];
+            CGPoint tempPointOfLine1 = [tempPoint1Value CGPointValue];
+            CGPoint tempPointOfLine2 = [tempPoint2Value CGPointValue];
+            LineSegment *cd = (LineSegment *)malloc(sizeof(LineSegment));
+            cd->pt1 = tempPointOfLine1;
+            cd->pt2 = tempPointOfLine2;
+            isIntersection += intersection(ab, cd);
+            NSLog(@"[%d] isIntersection: %d", i, isIntersection);
+            if (0 < isIntersection)
+            {
+                return;
+            }
+        }
+        
+        ab->pt1 = centerPoint;
+        ab->pt2 = pointOfLine2;
+        for (int i = 0; i < pointCount - 2; ++i)
+        {
+            int tempPoint1Index = (pointCount + centerIndex - i - 1) % pointCount;
+            int tempPoint2Index = (pointCount + centerIndex - i - 2) % pointCount;
+            NSLog(@"[%d] centerIndex: %d, tempPoint1Index: %d, tempPoint2Index: %d", i, centerIndex, tempPoint1Index, tempPoint2Index);
+            if (point2Index == tempPoint2Index)
+            {
+                break;
+            }
+            NSValue *tempPoint1Value = [polygonPathArray objectAtIndex:tempPoint1Index];
+            NSValue *tempPoint2Value = [polygonPathArray objectAtIndex:tempPoint2Index];
+            CGPoint tempPointOfLine1 = [tempPoint1Value CGPointValue];
+            CGPoint tempPointOfLine2 = [tempPoint2Value CGPointValue];
+            LineSegment *cd = (LineSegment *)malloc(sizeof(LineSegment));
+            cd->pt1 = tempPointOfLine1;
+            cd->pt2 = tempPointOfLine2;
+            isIntersection += intersection(ab, cd);
+            NSLog(@"[%d] isIntersection: %d", i, isIntersection);
+            if (0 < isIntersection)
+            {
+                return;
+            }
+        }
+    }
+    
     NSValue *pointValue = [NSValue valueWithCGPoint:touchPoint];
     [polygonPathArray replaceObjectAtIndex:self.searchedPointInfo->pointIndex withObject:pointValue];
     
@@ -330,5 +426,100 @@ static CGFloat distanceBetweenTwoPoints(CGPoint point1, CGPoint point2)
     CGFloat dy = point2.y - point1.y;
     return sqrt(dx * dx + dy * dy);
 };
+
+//static CGFloat distanceLintToPoint(CGPoint pointOfLine1, CGPoint pointOfLine2, CGPoint centerPoint)
+//{
+//    CGFloat segment_mag = (pointOfLine2.x - pointOfLine1.x) * (pointOfLine2.x - pointOfLine1.x) + (pointOfLine2.y - pointOfLine1.y) * (pointOfLine2.y - pointOfLine1.y);
+//    CGFloat distance;
+//    if (0 != segment_mag)
+//    {
+//        CGFloat u = ((centerPoint.x - pointOfLine1.x) * (pointOfLine2.x - pointOfLine1.x) + (centerPoint.y - pointOfLine1.y) * (pointOfLine2.y - pointOfLine1.y)) / segment_mag;
+//        CGFloat xp = pointOfLine1.x + u * (pointOfLine2.x - pointOfLine1.x);
+//        CGFloat yp = pointOfLine1.y + u * (pointOfLine2.y - pointOfLine1.y);
+//        distance = sqrt((xp - centerPoint.x) * (xp - centerPoint.x) + (yp - centerPoint.y) * (yp - centerPoint.y));
+//    }
+//    else
+//    {
+//        distance = sqrt((centerPoint.x - pointOfLine1.x) * (centerPoint.x - pointOfLine1.x) + (centerPoint.y - pointOfLine1.y) * (centerPoint.y - pointOfLine1.y));
+//    }
+//
+//    return distance;
+//}
+//
+//static BOOL checkLeft(CGPoint pointOfLine1, CGPoint pointOfLine2, CGPoint centerPoint)
+//{
+//    BOOL isLeft = NO;
+//    CGFloat result = (pointOfLine1.x * pointOfLine2.y) + (pointOfLine2.x * centerPoint.y) + (centerPoint.x * pointOfLine1.y) - (pointOfLine1.x * centerPoint.y) - (pointOfLine2.x * pointOfLine1.y) - (centerPoint.x * pointOfLine2.y);
+//    if (0 < result)
+//    {
+//        isLeft = YES;
+//    }
+//
+//    return isLeft;
+//}
+//
+//static CGFloat interiorAngleFromPoint(CGPoint centerPoint, CGPoint point0, CGPoint point1)
+//{
+//    CGFloat p0c = sqrt(powf(centerPoint.x - point0.x, 2) + powf(centerPoint.y - point0.y, 2)); // p0->c (b)
+//    CGFloat p1c = sqrt(powf(centerPoint.x - point1.x, 2) + powf(centerPoint.y - point1.y, 2)); // p1->c (a)
+//    CGFloat p0p1 = sqrt(powf(point1.x - point0.x, 2) + powf(point1.y - point0.y, 2)); // p0->p1 (c)
+//    CGFloat value = acosf((p1c * p1c + p0c * p0c - p0p1 * p0p1) / (2 * p1c * p0c));
+//    return value * 180 / M_PI;
+//}
+
+static int direction(CGPoint A, CGPoint B, CGPoint C)
+{
+    CGFloat dxAB, dxAC, dyAB, dyAC;
+    int dir = 0;
+    dxAB = B.x - A.x;
+    dyAB = B.y - A.y;
+    dxAC = C.x - A.x;
+    dyAC = C.y - A.y;
+    if (dxAB * dyAC < dyAB * dxAC) // 시계방향
+    {
+        dir = 1;
+    }
+    if (dxAB * dyAC > dyAB * dxAC) // 반시계방향
+    {
+        dir  = -1;
+    }
+    if (dxAB * dyAC == dyAB * dxAC) // 일직선 상에 있는 경우
+    {
+        if (dxAB == 0 && dyAB == 0)
+        {
+            dir = 0; // A = B
+        }
+        else if ((dxAB * dxAC < 0) || (dyAB * dyAC < 0))
+        {
+            dir = -1; // A가 가운데
+        }
+        else if ((dxAB * dxAB + dyAB * dyAB) >= (dxAC * dxAC + dyAC * dyAC))
+        {
+            dir = 0; // C가 가운데
+        }
+        else
+        {
+            dir = 1; // B가 가운데
+        }
+    }
+    
+    return dir;
+}
+
+int intersection(LineSegment *ab, LineSegment *cd)
+{
+    int lineCrossing = 0;
+    if ((direction(ab->pt1, ab->pt2, cd->pt1) * direction(ab->pt1, ab->pt2, cd->pt2) <= 0)
+        && (direction(cd->pt1, cd->pt2, ab->pt1) * direction(cd->pt1, cd->pt2, ab->pt2) <= 0))
+    {
+        lineCrossing = 1;
+    }
+    else
+    {
+        lineCrossing = 0;
+    }
+    
+    return lineCrossing;
+}
 
 @end

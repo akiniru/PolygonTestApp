@@ -17,6 +17,11 @@ typedef struct AKPointInfo {
     NSInteger pointIndex;
 } AKPointInfo;
 
+typedef struct LineSegment {
+    CGPoint pt1;
+    CGPoint pt2;
+} LineSegment;
+
 - (void)initAllPointsWithPointCount:(int)count;
 
 @end
