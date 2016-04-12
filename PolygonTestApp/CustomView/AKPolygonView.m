@@ -303,38 +303,7 @@
     
     NSMutableArray *polygonPathArray = [self searchPolygonPathArray:self.searchedPointInfo];
     int pointCount = (int)polygonPathArray.count;
-    //    if (3 < pointCount)
-    //    {
-    //        BOOL prevLeft = YES;
-    //        for (int i = 0; i < pointCount - 2; ++i)
-    //        {
-    //            int centerIndex = (int)self.searchedPointInfo->pointIndex;
-    //            int point1Index = (self.searchedPointInfo->pointIndex + i + 1) % pointCount;
-    //            int point2Index = (self.searchedPointInfo->pointIndex + i + 2) % pointCount;
-    //            NSLog(@"[%d] centerIndex: %d, point1Index: %d, point2Index: %d", i, centerIndex, point1Index, point2Index);
-    //            NSValue *centerValue = [polygonPathArray objectAtIndex:centerIndex];
-    //            NSValue *point1Value = [polygonPathArray objectAtIndex:point1Index];
-    //            NSValue *point2Value = [polygonPathArray objectAtIndex:point2Index];
-    //            CGPoint centerPoint = [centerValue CGPointValue];
-    //            CGPoint pointOfLine1 = [point1Value CGPointValue];
-    //            CGPoint pointOfLine2 = [point2Value CGPointValue];
-    //            CGFloat distanceByTouchPoint = distanceLintToPoint(pointOfLine1, pointOfLine2, touchPoint);
-    //            CGFloat distance = distanceLintToPoint(pointOfLine1, pointOfLine2, centerPoint);
-    //            BOOL isLeft = checkLeft(pointOfLine1, pointOfLine2, touchPoint);
-    //            NSLog(@"[%d] distance: %f, distanceByTouchPoint: %f, isLeft: %@", i, distance, distanceByTouchPoint, NSStringFromBOOL(isLeft));
-    //
-    //            if (i == 0)
-    //            {
-    //                prevLeft = isLeft;
-    //                continue;
-    //            }
-    //            if (prevLeft != isLeft) {
-    //                return;
-    //            }
-    //        }
-    //    }
-    
-    if (3 < pointCount)
+    if (DEFAULT_POINT_COUNT < pointCount)
     {
         int centerIndex = (int)self.searchedPointInfo->pointIndex;
         int point1Index = (pointCount + centerIndex - 1) % pointCount;
@@ -426,46 +395,6 @@ static CGFloat distanceBetweenTwoPoints(CGPoint point1, CGPoint point2)
     CGFloat dy = point2.y - point1.y;
     return sqrt(dx * dx + dy * dy);
 };
-
-//static CGFloat distanceLintToPoint(CGPoint pointOfLine1, CGPoint pointOfLine2, CGPoint centerPoint)
-//{
-//    CGFloat segment_mag = (pointOfLine2.x - pointOfLine1.x) * (pointOfLine2.x - pointOfLine1.x) + (pointOfLine2.y - pointOfLine1.y) * (pointOfLine2.y - pointOfLine1.y);
-//    CGFloat distance;
-//    if (0 != segment_mag)
-//    {
-//        CGFloat u = ((centerPoint.x - pointOfLine1.x) * (pointOfLine2.x - pointOfLine1.x) + (centerPoint.y - pointOfLine1.y) * (pointOfLine2.y - pointOfLine1.y)) / segment_mag;
-//        CGFloat xp = pointOfLine1.x + u * (pointOfLine2.x - pointOfLine1.x);
-//        CGFloat yp = pointOfLine1.y + u * (pointOfLine2.y - pointOfLine1.y);
-//        distance = sqrt((xp - centerPoint.x) * (xp - centerPoint.x) + (yp - centerPoint.y) * (yp - centerPoint.y));
-//    }
-//    else
-//    {
-//        distance = sqrt((centerPoint.x - pointOfLine1.x) * (centerPoint.x - pointOfLine1.x) + (centerPoint.y - pointOfLine1.y) * (centerPoint.y - pointOfLine1.y));
-//    }
-//
-//    return distance;
-//}
-//
-//static BOOL checkLeft(CGPoint pointOfLine1, CGPoint pointOfLine2, CGPoint centerPoint)
-//{
-//    BOOL isLeft = NO;
-//    CGFloat result = (pointOfLine1.x * pointOfLine2.y) + (pointOfLine2.x * centerPoint.y) + (centerPoint.x * pointOfLine1.y) - (pointOfLine1.x * centerPoint.y) - (pointOfLine2.x * pointOfLine1.y) - (centerPoint.x * pointOfLine2.y);
-//    if (0 < result)
-//    {
-//        isLeft = YES;
-//    }
-//
-//    return isLeft;
-//}
-//
-//static CGFloat interiorAngleFromPoint(CGPoint centerPoint, CGPoint point0, CGPoint point1)
-//{
-//    CGFloat p0c = sqrt(powf(centerPoint.x - point0.x, 2) + powf(centerPoint.y - point0.y, 2)); // p0->c (b)
-//    CGFloat p1c = sqrt(powf(centerPoint.x - point1.x, 2) + powf(centerPoint.y - point1.y, 2)); // p1->c (a)
-//    CGFloat p0p1 = sqrt(powf(point1.x - point0.x, 2) + powf(point1.y - point0.y, 2)); // p0->p1 (c)
-//    CGFloat value = acosf((p1c * p1c + p0c * p0c - p0p1 * p0p1) / (2 * p1c * p0c));
-//    return value * 180 / M_PI;
-//}
 
 static int direction(CGPoint A, CGPoint B, CGPoint C)
 {
