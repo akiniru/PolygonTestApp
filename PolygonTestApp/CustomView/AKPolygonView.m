@@ -202,7 +202,7 @@
 - (AKPointInfo *)searchClosestPoint:(CGPoint)touchPoint
 {
     NSLog(@"called");
-    NSLog(@"self.polygonsDic.count: %lu", self.polygonsListDic.count);
+    NSLog(@"self.polygonsDic.count: %lu", (unsigned long)self.polygonsListDic.count);
     CGFloat smallestDistance = MAXFLOAT;
     
     NSInteger searchedPointKeyIndex = -1;
@@ -337,9 +337,11 @@
             cd->pt1 = tempPointOfLine1;
             cd->pt2 = tempPointOfLine2;
             isIntersection += intersection(ab, cd);
+            free(cd);
             NSLog(@"[%d] isIntersection: %d", i, isIntersection);
             if (0 < isIntersection)
             {
+                free(ab);
                 return;
             }
         }
@@ -363,12 +365,15 @@
             cd->pt1 = tempPointOfLine1;
             cd->pt2 = tempPointOfLine2;
             isIntersection += intersection(ab, cd);
+            free(cd);
             NSLog(@"[%d] isIntersection: %d", i, isIntersection);
             if (0 < isIntersection)
             {
+                free(ab);
                 return;
             }
         }
+        free(ab);
     }
     
     NSValue *pointValue = [NSValue valueWithCGPoint:touchPoint];
